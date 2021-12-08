@@ -1,0 +1,43 @@
+version: '2'
+services:
+  registry:
+    restart: always
+    image: registry:2.7.1
+    container_name: registry2
+    networks:
+      - registry-ui-net
+    ports:
+      - 127.0.0.1:5000:5000
+      - 127.0.0.1:5002:5002
+    environment:
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/domain.key
+      REGISTRY_AUTH: htpasswd
+      REGISTRY_AUTH_HTPASSWD_PATH: /auth/htpasswd
+      REGISTRY_AUTH_HTPASSWD_REALM: AIC Registry Realm
+      REGISTRY_STORAGE_DELETE_ENABLED: "true"
+    volumes:
+      - /opt/docker_registry/data:/var/lib/registry
+      - /opt/docker_registry/certs:/certs
+      - /opt/docker_registry/auth:/auth
+      - /opt/docker_registry/conf:/etc/docker/registry
+  ui:
+    restart: always
+    image: joxit/docker-registry-ui:2.0.9-debian
+    environment:
+    container_name: registry2_ui
+    networks:
+      - registry-ui-net
+    ports:
+      - 127.0.0.1:5001:80
+    environment:
+      - SINGLE_REGISTRY=true
+      - DELETE_IMAGES=true
+      - REGISTRY_TITLE=AIC Web Private Registry
+      - URL=https://docker.interaction.coach
+      - NGINX_PROXY_PASS_URL=https://registry:5000
+    depends_on:
+      - registry
+
+networks:
+  registry-ui-net:

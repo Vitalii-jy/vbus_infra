@@ -1,0 +1,17 @@
+default_packages:
+  - curl
+  - git
+  - htop
+  - mc
+  - ntp
+  - iftop
+  - iotop
+  - tcpdump
+  - xfsprogs
+  - socat
+  - sysstat
+  - jq
+  - ipset
+  - certbot
+  - whois
+  - apache2-utils

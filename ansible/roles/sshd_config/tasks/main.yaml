@@ -1,0 +1,8 @@
+---
+- name: Set a hostname
+  copy:
+    src: vbus.conf
+    dest: /etc/ssh/sshd_config.d/vbus.conf
+    owner: root
+    group: root
+    mode: '0640'

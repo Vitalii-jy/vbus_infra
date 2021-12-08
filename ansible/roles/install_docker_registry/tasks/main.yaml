@@ -1,0 +1,38 @@
+---
+- name: Create working directories for docker-registry
+  file:
+    path: "{{ item }}"
+    state: directory
+  loop:
+    - /opt/docker_registry
+    - /opt/docker_registry/data
+    - /opt/docker_registry/certs
+    - /opt/docker_registry/auth
+    - /opt/docker_registry/conf
+
+
+- name: Copy docker-registry compose file
+  copy:
+    src: docker-compose.yaml
+    dest: /opt/docker_registry/docker-compose.yaml
+    owner: root
+    group: root
+    mode: 0644
+
+
+- name: Copy docker-registry config file
+  copy:
+    src: config.yaml
+    dest: /opt/docker_registry/conf/config.yaml
+    owner: root
+    group: root
+    mode: 0644
+
+
+- name: Copy docker-registry user add util
+  copy:
+    src: add_user.sh
+    dest: /opt/docker_registry/auth/add_user.sh
+    owner: root
+    group: root
+    mode: 0755

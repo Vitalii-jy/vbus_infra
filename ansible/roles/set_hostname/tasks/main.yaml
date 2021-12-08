@@ -1,0 +1,10 @@
+---
+- name: Set a hostname
+  hostname:
+    name: "{{ srv_name|upper }}"
+
+- name: Add hostname to hosts
+  lineinfile:
+    path: /etc/hosts
+    line: "127.0.0.1 {{ srv_name|upper }}"
+

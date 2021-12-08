@@ -1,0 +1,11 @@
+---
+
+- name: Setup VBUS server
+  hosts: vbus_servers
+  roles:
+    - set_hostname
+    - add_users
+    - install_docker
+    - install_common
+    - install_docker_registry
+    - sshd_config

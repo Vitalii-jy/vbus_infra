@@ -1,0 +1,9 @@
+
+- name: Install common packages
+  apt:
+    name: "{{ default_packages }}"
+    state: latest # noqa
+    update_cache: yes
+  tags:
+    - install_default_packages
+

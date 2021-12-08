@@ -1,0 +1,18 @@
+[vbus_servers]
+vbus01 srv_name=ams-vbus01
+
+
+[all:vars]
+
+ansible_user=pvv
+# ansible_sudo_pass=
+# ansible_ssh_pass=
+
+ansible_become=yes
+ansible_sudo=yes
+
+become=yes
+# become_user=root
+# become_pass=
+
+users = ["pvv"]
